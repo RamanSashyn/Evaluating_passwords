@@ -1,11 +1,16 @@
+def contains_digit(password):
+    found_digit = "Нет цифр"
+    for symbols in password:
+        if symbols.isdigit():
+            found_digit = "Есть цифры"
+            break
+    return found_digit
+
 password = input('Введите пароль: ')
 
 if len(password) < 12:
     print("Короткий")
-    for symbols in password:
-        if symbols.isdigit():
-            print(symbols + ' - Цифра')
-        elif symbols.isalpha():
-            print(symbols + ' - Буква')
+    print(contains_digit(password))
 else:
     print("Длинный")
+    print(contains_digit(password))
