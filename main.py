@@ -1,68 +1,48 @@
 from prompt_toolkit import prompt, PromptSession
 
 
-score = 0
-
 def has_digit(password):
-    global score
-    for symbol in password:
-        if symbol.isdigit():
-            score += 2
-            return True
-    return False
+    return any(symbol.isdigit() for symbol in password)
+
 
 def is_very_long(password):
-    global score
-    if len(password) >= 12:
-        score += 2
-        return True
-    return False
+    return len(password) >= 12
+
 
 def has_letters(password):
-    global score
-    for symbol in password:
-        if symbol.isalpha():
-            score += 2
-            return True
-    return False
+    return any(symbol.isalpha() for symbol in password)
+
 
 def has_upper_letters(password):
-    global score
-    for symbol in password:
-        if symbol.isupper():
-            score += 2
-            return True
-    return False
+    return any(symbol.isupper() for symbol in password)
+
 
 def has_lower_letters(password):
-    global score
-    for symbol in password:
-        if symbol.islower():
-            score += 2
-            return True
-    return False
+    return any(symbol.islower() for symbol in password)
+
 
 def has_symbols(password):
-    global score
-    for symbol in password:
-        if not symbol.isalnum():
+    return any(not symbol.isalnum() for symbol in password)
+
+
+def calculate_score(password):
+    score = 0
+
+    checks = [
+        has_digit,
+        is_very_long,
+        has_letters,
+        has_upper_letters,
+        has_lower_letters,
+        has_symbols,
+    ]
+
+    for check in checks:
+        if check(password):
             score += 2
-            return True
-    return False
 
-password = input('Введите пароль: ')
-
-checks = [
-    has_digit,
-    is_very_long,
-    has_letters,
-    has_upper_letters,
-    has_lower_letters,
-    has_symbols,
-]
-for check in checks:
-    check(password)
-
-print('Рейтинг пароля: ' + str(score))
+    return score
 
 
+password = input("Введите пароль: ")
+print(f"Рейтинг пароля: {calculate_score(password)}")
