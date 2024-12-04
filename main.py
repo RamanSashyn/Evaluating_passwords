@@ -1,6 +1,3 @@
-from prompt_toolkit import prompt, PromptSession
-
-
 def has_digit(password):
     return any(symbol.isdigit() for symbol in password)
 
